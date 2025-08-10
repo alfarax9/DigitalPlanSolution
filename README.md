@@ -1,1 +1,1 @@
-# DigitalPlanSolution
+DIPS-digital-plan-solution
