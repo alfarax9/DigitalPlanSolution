@@ -1,82 +1,37 @@
 'use client';
 
+import { api } from '@/components/lib/api';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+import { useEffect, useState } from 'react';
 
-const galleryProjects = [
-  {
-    id: 1,
-    title: 'Modern Park Design',
-    description: 'Contemporary landscape and structure design with clean lines and modern amenities',
-    category: 'Architecture',
-    image: 'https://images.pexels.com/photos/1694621/pexels-photo-1694621.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'
-  },
-  {
-    id: 2,
-    title: 'Digital Walkways',
-    description: 'Innovative pedestrian path design integrating technology and nature',
-    category: 'Urban Planning',
-    image: 'https://images.pexels.com/photos/4356365/pexels-photo-4356365.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'
-  },
-  {
-    id: 3,
-    title: 'Urban Innovation',
-    description: 'Effective space solutions designed for community engagement',
-    category: 'Public Spaces',
-    image: 'https://images.pexels.com/photos/3761263/pexels-photo-3761263.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'
-  },
-  {
-    id: 4,
-    title: 'Sustainable Design',
-    description: 'Eco-friendly park solutions with renewable energy integration',
-    category: 'Sustainability',
-    image: 'https://images.pexels.com/photos/2144200/pexels-photo-2144200.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'
-  },
-  {
-    id: 5,
-    title: 'Smart Infrastructure',
-    description: 'IoT-enabled park management systems and smart planning',
-    category: 'Technology',
-    image: 'https://images.pexels.com/photos/3761084/pexels-photo-3761084.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'
-  },
-  {
-    id: 6,
-    title: 'Recreation Spaces',
-    description: 'Innovative recreational facilities for all age groups',
-    category: 'Recreation',
-    image: 'https://images.pexels.com/photos/1694621/pexels-photo-1694621.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'
-  },
-  {
-    id: 7,
-    title: 'Sustainable Design',
-    description: 'Eco-friendly park solutions with renewable energy integration',
-    category: 'Sustainability',
-    image: 'https://images.pexels.com/photos/2144200/pexels-photo-2144200.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'
-  },
-  {
-    id: 8,
-    title: 'Smart Infrastructure',
-    description: 'IoT-enabled park management systems and smart planning',
-    category: 'Technology',
-    image: 'https://images.pexels.com/photos/3761084/pexels-photo-3761084.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'
-  },
-  {
-    id: 9,
-    title: 'Recreation Spaces',
-    description: 'Innovative recreational facilities for all age groups',
-    category: 'Recreation',
-    image: 'https://images.pexels.com/photos/1694621/pexels-photo-1694621.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'
-  },
-  {
-    id: 10,
-    title: 'Urban Innovation',
-    description: 'Effective space solutions designed for community engagement',
-    category : 'Public Spaces',
-    image: ''
-  }
-];
+interface Project {
+  id: number;
+  title: string;
+  description: string;
+  galleries: {image_path: string}[];
+  category: { name: string; };
+}
+
+
 
 export default function GalleryPage() {
+  const [projects, setProjects] = useState<Project[]>([]);
+
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const response = await api.get('/events');
+        if (response.data.status !== 'success') throw new Error('Network response was not ok');
+        console.log('Fetched projects:', response.data.data);
+        setProjects(response.data.data);
+      } catch (error) {
+        console.error('Failed to fetch events:', error);
+      }
+    };
+
+    fetchProjects();
+  }, []);
   return (
     <div className="pt-20">
       {/* Hero Section */}
@@ -101,7 +56,7 @@ export default function GalleryPage() {
       <section className="pb-20 px-4 md:px-8 lg:px-16 xl:px-24">
         <div className="container mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {galleryProjects.map((project, index) => (
+            {projects.map((project, index) => (
               <motion.div
                 key={project.id}
                 initial={{ opacity: 0, y: 50 }}
@@ -112,18 +67,26 @@ export default function GalleryPage() {
               >
                 <div className="relative overflow-hidden rounded-xl bg-gray-900/50 backdrop-blur-sm border border-gray-700/50 hover:border-[#4DD0E1]/50 transition-all duration-500">
                   <div className="relative h-64 md:h-72">
-                    <Image
-                      src={project.image}
+                    {project.galleries.length > 0 ? (
+                      <Image
+                      src={project.galleries[0].image_path}
                       alt={project.title}
                       fill
                       className="object-cover group-hover:scale-110 transition-transform duration-700"
-                    />
+                    /> ) : (
+                      <Image
+                        src={"null"}
+                        alt={project.title}
+                        fill
+                        className="object-cover group-hover:scale-110 transition-transform duration-700"
+                      />
+                    )}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80 group-hover:opacity-100 transition-opacity duration-300" />
                     
                     {/* Category Badge */}
                     <div className="absolute top-4 right-4">
                       <span className="px-3 py-1 text-xs font-medium bg-[#4DD0E1]/20 border border-[#4DD0E1]/40 text-[#4DD0E1] rounded-full backdrop-blur-sm">
-                        {project.category}
+                        {project.category.name}
                       </span>
                     </div>
                   </div>
