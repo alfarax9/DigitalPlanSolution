@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { MapPin, Phone, Mail } from 'lucide-react';
+import Image from 'next/image';
 
 
 const quickLinks = [
@@ -19,9 +20,7 @@ export default function Footer() {
           {/* Company Info */}
           <div className="space-y-4">
             <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-gradient-to-r from-[#4DD0E1] to-[#00BCD4] rounded-lg flex items-center justify-center">
-                <div className="w-3 h-3 bg-white rounded-sm" />
-              </div>
+              <Image src='/DIPS.png' alt='' width={40} height={40} />
               <span className="text-xl font-bold text-[#4DD0E1]">DIPS</span>
             </div>
             <p className="text-gray-300 text-sm leading-relaxed max-w-md">

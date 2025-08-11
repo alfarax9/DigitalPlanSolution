@@ -49,7 +49,7 @@ export default function Navigation() {
         animate={{ y: 0 }}
         transition={{ duration: 0.5 }}
         className={cn(
-          'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
+          'fixed top-0 left-0 right-0 border-b z-50 transition-all duration-300',
           scrolled 
             ? 'bg-[#0A1628]/50 backdrop-blur-md border-b border-gray-700/50 shadow-lg' 
             : 'bg-transparent'
@@ -59,7 +59,7 @@ export default function Navigation() {
           <div className="flex items-center justify-between h-16 md:h-20">
             <Link href="/" className="flex items-center space-x-2 group">
               <Image
-                src="/img/DIPS.png"
+                src="/DIPS.png"
                 alt="DIPS Logo"
                 width={40}
                 height={40}
