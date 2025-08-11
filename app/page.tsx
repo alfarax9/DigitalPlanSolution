@@ -1,46 +1,64 @@
-'use client';
+"use client";
 
-import { motion } from 'framer-motion';
-import { Button } from '@/components/ui/button';
-import { ArrowRight, Sparkles } from 'lucide-react';
-import Image from 'next/image';
-import Link from 'next/link';
-
-
+import { motion } from "framer-motion";
+import { Button } from "@/components/ui/button";
+import { ArrowRight, Sparkles } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 
 const portfolioProjects = [
   {
     id: 1,
-    title: 'Virtual Reality Exhibition UB Tech 2023',
-    subtitle: 'Virtual Reality Exhibition UB Tech 2023',
-    image: 'https://images.pexels.com/photos/3761087/pexels-photo-3761087.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'
+    title: "Virtual Reality Exhibition UB Tech 2023",
+    subtitle: "Virtual Reality Exhibition UB Tech 2023",
+    image:
+      "https://images.pexels.com/photos/3761087/pexels-photo-3761087.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
   },
   {
     id: 2,
-    title: 'Videotron 3D Balibo',
-    subtitle: 'Videotron 3D Balibo',
-    image: 'https://images.pexels.com/photos/3761065/pexels-photo-3761065.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'
+    title: "Videotron 3D Balibo",
+    subtitle: "Videotron 3D Balibo",
+    image:
+      "https://images.pexels.com/photos/3761065/pexels-photo-3761065.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
   },
   {
     id: 3,
-    title: 'Videotron 3D Balibo',
-    subtitle: 'Videotron 3D Balibo',
-    image: 'https://images.pexels.com/photos/3761084/pexels-photo-3761084.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'
+    title: "Videotron 3D Balibo",
+    subtitle: "Videotron 3D Balibo",
+    image:
+      "https://images.pexels.com/photos/3761084/pexels-photo-3761084.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
   },
   {
     id: 4,
-    title: 'Jatim Park SAFARI Malattan',
-    subtitle: 'Jatim Park SAFARI Malattan',
-    image: 'https://images.pexels.com/photos/3761411/pexels-photo-3761411.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'
-  }
+    title: "Jatim Park SAFARI Malattan",
+    subtitle: "Jatim Park SAFARI Malattan",
+    image:
+      "https://images.pexels.com/photos/3761411/pexels-photo-3761411.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+  },
 ];
 
 export default function HomePage() {
   return (
     <div className="relative">
       {/* Hero Section */}
-      <section className="min-h-screen flex items-center justify-between px-4 md:px-8 lg:px-16 xl:px-24 py-20">
-        <div className="container mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <section className="min-h-screen flex items-center justify-between">
+        <motion.div
+          initial={{ opacity: 0, x: 50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="relative"
+        ></motion.div>
+        <div className="relative w-full h-[500px] xl:min-h-[1000px] md:h-[600px]">
+          <Image
+            src="/bg.png"
+            alt="VR Headset representing Digital Innovation"
+            fill
+            className="object-cover rounded-lg"
+            priority
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0A1628] via-transparent to-transparent rounded-lg" />
+        </div>
+        <div className="container absolute left-[340px] mt-20 mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
@@ -49,20 +67,23 @@ export default function HomePage() {
           >
             <div className="flex items-center space-x-2 text-[#4DD0E1]">
               <Sparkles className="h-5 w-5" />
-              <span className="text-sm font-medium tracking-wide uppercase">Digital Design Excellence</span>
+              <span className="text-sm font-medium tracking-wide uppercase">
+                Digital Design Excellence
+              </span>
             </div>
-            
+
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
               Welcome to <span className="text-[#4DD0E1]">DIPS</span>
             </h1>
-            
-            <p className="text-gray-300 text-lg md:text-xl leading-relaxed max-w-lg">
-              Digital Plan Solution - Your creative partner for innovative design solutions. 
-              We transform visions into compelling digital experiences that captivate and inspire.
+
+            <p className="text-gray-300 text-lg md:text-xl leading-relaxed max-w-xl">
+              Digital Plan Solution - Your creative partner for innovative
+              design solutions. We transform visions into compelling digital
+              experiences that captivate and inspire.
             </p>
-            
+
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
-              <Button 
+              <Button
                 asChild
                 className="bg-[#4DD0E1] hover:bg-[#00BCD4] text-black font-semibold px-8 py-3 rounded-lg transition-all duration-300 transform hover:scale-105"
               >
@@ -71,34 +92,14 @@ export default function HomePage() {
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
-              
-              <Button 
+
+              <Button
                 asChild
-                variant="outline" 
+                variant="outline"
                 className="border-[#4DD0E1] text-[#4DD0E1] hover:bg-[#4DD0E1] hover:text-black px-8 py-3 rounded-lg transition-all duration-300"
               >
-                <Link href="/about">
-                  Learn More
-                </Link>
+                <Link href="/about">Learn More</Link>
               </Button>
-            </div>
-          </motion.div>
-          
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="relative"
-          >
-            <div className="relative w-full h-[500px] md:h-[600px]">
-              <Image
-                src="/img/background home page atas.png"
-                alt="VR Headset representing Digital Innovation"
-                fill
-                className="object-cover rounded-lg"
-                priority
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0A1628] via-transparent to-transparent rounded-lg" />
             </div>
           </motion.div>
         </div>
@@ -118,7 +119,8 @@ export default function HomePage() {
               Our Creative Solutions
             </h2>
             <p className="text-gray-300 text-lg md:text-xl max-w-3xl mx-auto">
-              Discover our portfolio of innovative digital design projects that bring visions to life
+              Discover our portfolio of innovative digital design projects that
+              bring visions to life
             </p>
           </motion.div>
 
@@ -141,8 +143,12 @@ export default function HomePage() {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
               </div>
               <div className="absolute bottom-0 left-0 right-0 p-6">
-                <h3 className="text-xl font-semibold mb-2">{portfolioProjects[0].title}</h3>
-                <p className="text-gray-300 text-sm">{portfolioProjects[0].subtitle}</p>
+                <h3 className="text-xl font-semibold mb-2">
+                  {portfolioProjects[0].title}
+                </h3>
+                <p className="text-gray-300 text-sm">
+                  {portfolioProjects[0].subtitle}
+                </p>
               </div>
             </motion.div>
 
@@ -163,8 +169,12 @@ export default function HomePage() {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
               </div>
               <div className="absolute bottom-0 left-0 right-0 p-6">
-                <h3 className="text-xl font-semibold mb-2">{portfolioProjects[1].title}</h3>
-                <p className="text-gray-300 text-sm">{portfolioProjects[1].subtitle}</p>
+                <h3 className="text-xl font-semibold mb-2">
+                  {portfolioProjects[1].title}
+                </h3>
+                <p className="text-gray-300 text-sm">
+                  {portfolioProjects[1].subtitle}
+                </p>
               </div>
             </motion.div>
           </div>
@@ -189,7 +199,9 @@ export default function HomePage() {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
                 </div>
                 <div className="absolute bottom-0 left-0 right-0 p-6">
-                  <h3 className="text-lg font-semibold mb-2">{project.title}</h3>
+                  <h3 className="text-lg font-semibold mb-2">
+                    {project.title}
+                  </h3>
                   <p className="text-gray-300 text-sm">{project.subtitle}</p>
                 </div>
               </motion.div>
@@ -203,7 +215,7 @@ export default function HomePage() {
             viewport={{ once: true }}
             className="text-center"
           >
-            <Button 
+            <Button
               asChild
               className="bg-[#0A1628] border border-[#4DD0E1] text-[#4DD0E1] hover:bg-[#4DD0E1] hover:text-black px-8 py-3 rounded-lg transition-all duration-300 transform hover:scale-105"
             >
