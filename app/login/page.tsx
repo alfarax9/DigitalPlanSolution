@@ -4,6 +4,7 @@ import { useState } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
+import { login } from "@/components/lib/api";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -15,19 +16,10 @@ export default function LoginPage() {
     e.preventDefault();
     setError("");
 
-    try {
-      const res = await axios.post("http://localhost:8000/api/login", {
-        email,
-        password
-      });
-
-      const token = res.data.token;
-      Cookies.set("token", token, { expires: 7 }); // simpan 7 hari
-      router.push("/dashboard");
-    } catch (err: any) {
-      setError(err.response?.data?.message || "Login gagal");
-    }
+    login(email, password)
+    router.push("/admin");
   };
+  
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-darkblue">

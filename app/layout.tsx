@@ -1,10 +1,10 @@
-
 import './globals.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import { useRouter } from 'next/router';
+import { usePathname } from 'next/navigation';
 
 const inter = Inter({ 
   subsets: ['latin'],
