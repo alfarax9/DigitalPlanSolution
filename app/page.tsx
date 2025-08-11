@@ -48,17 +48,17 @@ export default function HomePage() {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="relative"
         ></motion.div>
-        <div className="relative w-full h-[500px] xl:min-h-[1000px] md:h-[600px]">
+        <div className="relative w-full h-[500px] xl:min-h-[1000px] sm:w-full md:h-[600px]">
           <Image
             src="/bg.png"
             alt="VR Headset representing Digital Innovation"
             fill
-            className="object-cover rounded-lg"
+            className="object-cover rounded-lg max-md:hidden max-sm:hidden lg:block"
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0A1628] via-transparent to-transparent rounded-lg" />
+          <div className="absolute md:hidden inset-0 bg-gradient-to-t from-[#0A1628] via-transparent to-transparent rounded-lg" />
         </div>
-        <div className="container absolute left-[340px] mt-20 mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div className="container absolute min-lg:left-[340px] max-sm:ml-0 ml-20 mt-20 mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
