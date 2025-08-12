@@ -3,6 +3,8 @@
 import Link from 'next/link';
 import { MapPin, Phone, Mail } from 'lucide-react';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
+
 
 
 const quickLinks = [
@@ -13,8 +15,11 @@ const quickLinks = [
 ];
 
 export default function Footer() {
+  const pathname = usePathname();
+
+  const isHidden = pathname === '/admin';
   return (
-    <footer className="bg-[#0A1628] border-t border-gray-700/50 mt-auto">
+    <footer className={"bg-[#0A1628] border-t border-gray-700/50 mt-auto" + (isHidden ? ' hidden' : '')}>
       <div className="container mx-auto px-4 md:px-8 lg:px-16 xl:px-24 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {/* Company Info */}

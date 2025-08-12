@@ -21,6 +21,8 @@ export default function Navigation() {
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
 
+  const isHidden = pathname === '/admin';
+
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
@@ -44,7 +46,8 @@ export default function Navigation() {
 
   return (
     <>
-      <motion.nav
+      <div className={isHidden ? 'hidden' : 'block'}>
+        <motion.nav
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.5 }}
@@ -145,6 +148,7 @@ export default function Navigation() {
           </div>
         </motion.div>
       )}
+      </div>
     </>
   );
 }
