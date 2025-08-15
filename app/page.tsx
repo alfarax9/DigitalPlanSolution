@@ -48,15 +48,18 @@ export default function HomePage() {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="relative"
         ></motion.div>
-        <div className="relative w-full h-[500px] xl:min-h-[1000px] md:h-[600px]">
-          <Image
-            src="/bg.png"
-            alt="VR Headset representing Digital Innovation"
-            fill
-            className="object-cover rounded-lg"
-            priority
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0A1628] via-transparent to-transparent rounded-lg" />
+        <div className="flex w-full h-[1000px] xl:min-h-[1000px] md:h-[600px]">
+          <div className="flex-1" />
+          <div className="relative flex-1 h-full">
+            <Image
+              src="/removebg.png"
+              alt="VR Headset representing Digital Innovation"
+              fill
+              className="object-cover rounded-lg"
+              priority
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0A1628] via-transparent to-transparent rounded-lg" />
+          </div>
         </div>
         <div className="container absolute left-[340px] mt-20 mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <motion.div

@@ -72,7 +72,7 @@ export default function Footer() {
         {/* Copyright */}
         <div className="border-t border-gray-700/50 mt-8 pt-6">
           <p className="text-center text-gray-400 text-sm">
-            © 2024 DIPS - Digital Plan Solutions. All rights reserved.
+            © 2025 DIPS - Digital Plan Solutions. All rights reserved.
           </p>
         </div>
       </div>
