@@ -5,63 +5,66 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Sparkles } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import { api } from "@/components/lib/api";
 
-const portfolioProjects = [
-  {
-    id: 1,
-    title: "Virtual Reality Exhibition UB Tech 2023",
-    subtitle: "Virtual Reality Exhibition UB Tech 2023",
-    image:
-      "https://images.pexels.com/photos/3761087/pexels-photo-3761087.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-  },
-  {
-    id: 2,
-    title: "Videotron 3D Balibo",
-    subtitle: "Videotron 3D Balibo",
-    image:
-      "https://images.pexels.com/photos/3761065/pexels-photo-3761065.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-  },
-  {
-    id: 3,
-    title: "Videotron 3D Balibo",
-    subtitle: "Videotron 3D Balibo",
-    image:
-      "https://images.pexels.com/photos/3761084/pexels-photo-3761084.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-  },
-  {
-    id: 4,
-    title: "Jatim Park SAFARI Malattan",
-    subtitle: "Jatim Park SAFARI Malattan",
-    image:
-      "https://images.pexels.com/photos/3761411/pexels-photo-3761411.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-  },
-];
+interface Project {
+  id: number;
+  title: string;
+  description: string;
+  short_description: string;
+  galleries: {image_path: string}[];
+  category?: { name: string; };
+  category_id: number;
+  start_time: string;
+  location?: string;
+}
 
 export default function HomePage() {
+const [portfolioProjects, setPortfolioProjects] = useState<Project[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchPortfolio() {
+      try {
+        const response = await api.get('/events');
+        // Support either {status,data} or raw array
+        setPortfolioProjects(response.data.data);
+      } catch (error) {
+        console.error('Failed to fetch portfolio projects:', error);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchPortfolio();
+  }, []);
+
+  const featured = portfolioProjects.slice(0, 2);
+  const others = portfolioProjects.slice(2);
+
+  const getCover = (p: Project | undefined) =>
+  p?.galleries?.[0].image_path || '/placeholder.png';
   return (
     <div className="relative">
       {/* Hero Section */}
-      <section className="min-h-screen flex items-center justify-between">
+      <section className="min-h-[200px] lg:min-h-screen flex items-center justify-between">
         <motion.div
           initial={{ opacity: 0, x: 50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
           className="relative"
         ></motion.div>
-        <div className="flex w-full h-[1000px] xl:min-h-[1000px] md:h-[600px]">
-          <div className="flex-1" />
-          <div className="relative flex-1 h-full">
-            <Image
-              src="/removebg.png"
-              alt="VR Headset representing Digital Innovation"
-              fill
-              className="object-cover rounded-lg"
-              priority
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#0A1628] via-transparent to-transparent rounded-lg" />
-          </div>
+        <div className="relative w-full h-[500px] xl:min-h-[1000px] md:h-[600px]">
+          <Image
+            src="/bg.png"
+            alt="VR Headset representing Digital Innovation"
+            fill
+            className="object-cover rounded-lg"
+            priority
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0A1628] via-transparent to-transparent rounded-lg" />
         </div>
-        <div className="container absolute left-[340px] mt-20 mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div className="container absolute min-lg:left-[340px] max-w-[991px]:ml-0 max-sm:ml-0 ml-20 mt-20 mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
@@ -128,58 +131,38 @@ export default function HomePage() {
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-            {/* Large Project Showcase */}
-            <motion.div
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
-              className="relative group cursor-pointer overflow-hidden rounded-xl bg-gray-900/50 backdrop-blur-sm border border-gray-700/50 hover:border-[#4DD0E1]/50 transition-all duration-500"
-            >
-              <div className="relative h-64 md:h-80">
-                <Image
-                  src={portfolioProjects[0].image}
-                  alt={portfolioProjects[0].title}
-                  fill
-                  className="object-cover group-hover:scale-110 transition-transform duration-700"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-              </div>
-              <div className="absolute bottom-0 left-0 right-0 p-6">
-                <h3 className="text-xl font-semibold mb-2">
-                  {portfolioProjects[0].title}
-                </h3>
-                <p className="text-gray-300 text-sm">
-                  {portfolioProjects[0].subtitle}
-                </p>
-              </div>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              viewport={{ once: true }}
-              className="relative group cursor-pointer overflow-hidden rounded-xl bg-gray-900/50 backdrop-blur-sm border border-gray-700/50 hover:border-[#4DD0E1]/50 transition-all duration-500"
-            >
-              <div className="relative h-64 md:h-80">
-                <Image
-                  src={portfolioProjects[1].image}
-                  alt={portfolioProjects[1].title}
-                  fill
-                  className="object-cover group-hover:scale-110 transition-transform duration-700"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-              </div>
-              <div className="absolute bottom-0 left-0 right-0 p-6">
-                <h3 className="text-xl font-semibold mb-2">
-                  {portfolioProjects[1].title}
-                </h3>
-                <p className="text-gray-300 text-sm">
-                  {portfolioProjects[1].subtitle}
-                </p>
-              </div>
-            </motion.div>
+            {featured.map((project, idx) => (
+              <motion.div
+                key={project.id}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: idx * 0.2 }}
+                viewport={{ once: true }}
+                className="relative group cursor-pointer overflow-hidden rounded-xl bg-gray-900/50 backdrop-blur-sm border border-gray-700/50 hover:border-[#4DD0E1]/50 transition-all duration-500"
+              >
+                <div className="relative h-64 md:h-80">
+                  {project.galleries?.length ? (
+                    <Image
+                      src={getCover(project)}
+                      alt={project.title}
+                      fill
+                      className="object-cover group-hover:scale-110 transition-transform duration-700"
+                    />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center text-gray-400 text-sm">
+                      No Image
+                    </div>
+                  )}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                </div>
+                <div className="absolute bottom-0 left-0 right-0 p-6">
+                  <h3 className="text-xl font-semibold mb-2">{project.title}</h3>
+                  <p className="text-gray-300 text-sm line-clamp-2">
+                    {project.short_description || project.description}
+                  </p>
+                </div>
+              </motion.div>
+            ))}
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
@@ -194,7 +177,7 @@ export default function HomePage() {
               >
                 <div className="relative h-48 md:h-64">
                   <Image
-                    src={project.image}
+                    src={project.galleries.length === 0 ? "no image" : project.galleries[0].image_path || ""}
                     alt={project.title}
                     fill
                     className="object-cover group-hover:scale-110 transition-transform duration-700"
@@ -205,7 +188,7 @@ export default function HomePage() {
                   <h3 className="text-lg font-semibold mb-2">
                     {project.title}
                   </h3>
-                  <p className="text-gray-300 text-sm">{project.subtitle}</p>
+                  <p className="text-gray-300 text-sm">{project.short_description}</p>
                 </div>
               </motion.div>
             ))}

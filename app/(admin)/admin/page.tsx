@@ -219,7 +219,7 @@ function App() {
         setIsOpen={setSidebarOpen}
       />
       
-      <div className="flex-1 lg:ml-64">
+      <div className="flex-1 ">
         <Header toggleSidebar={toggleSidebar} />
         <main className="min-h-[calc(100vh-73px)]">
           {renderPage()}

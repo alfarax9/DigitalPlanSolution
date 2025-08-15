@@ -2,7 +2,8 @@ import React from 'react';
 import { FolderOpen, Calendar, Tag, TrendingUp } from 'lucide-react';
 import StatsCard from '../components/Dashboard/StatsCard';
 import RecentProjects from '../components/Dashboard/RecentProjects';
-import { Project, Category, DashboardStats } from '../types';
+import { DashboardStats } from '../types';
+import { Category, Project } from '@/app/(admin)/admin/page';
 
 interface DashboardProps {
   projects: Project[];
@@ -25,27 +26,18 @@ const Dashboard: React.FC<DashboardProps> = ({ projects, categories, stats, onVi
           value={stats.totalProjects}
           icon={FolderOpen}
           color="bg-blue-600"
-          change="+12% from last month"
         />
         <StatsCard
           title="Total Events"
           value={stats.totalEvents}
           icon={Calendar}
           color="bg-green-600"
-          change="+8% from last month"
         />
         <StatsCard
           title="Categories"
           value={stats.totalCategories}
           icon={Tag}
           color="bg-purple-600"
-        />
-        <StatsCard
-          title="Active Projects"
-          value={stats.activeProjects}
-          icon={TrendingUp}
-          color="bg-orange-600"
-          change="2 completed this week"
         />
       </div>
       
