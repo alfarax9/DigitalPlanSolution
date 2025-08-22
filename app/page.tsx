@@ -11,7 +11,7 @@ import { api } from "@/components/lib/api";
 interface Project {
   id: number;
   title: string;
-  description: string;
+  description: string;  
   short_description: string;
   galleries: {image_path: string}[];
   category?: { name: string; };
