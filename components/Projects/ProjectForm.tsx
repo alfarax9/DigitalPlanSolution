@@ -70,7 +70,6 @@ const ProjectForm: React.FC<ProjectFormProps> = ({ project, categories, onSave, 
                 required
               />
             </div>
-            
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Description
@@ -83,7 +82,6 @@ const ProjectForm: React.FC<ProjectFormProps> = ({ project, categories, onSave, 
                 required
               />
             </div>
-
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Short Description
